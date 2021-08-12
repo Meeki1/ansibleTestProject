@@ -52,6 +52,7 @@
     apt:
       name: docker-ce
       state: present
+      enable: yes
       update_cache: yes
     notify: Start docker on boot
     tags:
