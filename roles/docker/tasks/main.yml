@@ -33,15 +33,21 @@
     state: present
     update_cache: yes
 
-- name: Install docker
-  pip: 
-    name: docker-py
+- name: Update apt and install docker-ce
+  apt:
+    name: docker-ce
     state: present
-    executable: pip3    
+    update_cache: false
+
+- name: Run and enable docker
+  service:
+    name: docker
+    state: started
+    enabled: true 
 
 - name: Add remote "ubuntu" user to "docker" group
   user:
     name: "ubuntu"
-    groups: "docker"
+    group: "docker"
     append: yes
 
