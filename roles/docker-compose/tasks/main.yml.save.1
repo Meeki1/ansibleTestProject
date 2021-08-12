@@ -1,0 +1,24 @@
+---
+# tasks file for docker-compose
+- name: Install docker-compose
+  get_url:
+    url : https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x,g+x'
+- name: Create target directory
+  file: path=home/docker-compose/ state=directory mode=0755
+- name: pwd
+  shell:
+e docker-compose on all target hosts
+  ansible.builtin.copy:
+    src: "{{ sourse_file }}"
+    dest: "{{ dest_file }}/docker-compose.yml"
+    mode: "0644"
+
+- name: run docker-compose containers
+  community.docker.docker_compose:
+    project_src: "{{ dest_file }}"
+    files:
+    - "docker-compose.yml"
+    state: present
+

@@ -1,0 +1,4 @@
+---
+# vars file for docker-compose
+sourse_file: docker-compose.yml
+dest_file: /home/docker-compose/docker-compose.yml

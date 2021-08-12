@@ -1,0 +1,59 @@
+---
+# tasks file for docker-compose
+- name: Install pip
+  apt:
+    name:
+      - python3-pip
+      - python3-setuptools
+    update_cache: true
+
+- name: Install docker-compose
+  pip:
+    name: docker-compose
+    executable: pip3
+
+---
+# tasks file for docker-compose
+- name: Install pip
+  apt:
+    name:
+      - python3-pip
+      - python3-setuptools
+    update_cache: true
+
+- name: Install docker-compose
+  pip:
+    name: docker-compose
+    executable: pip3
+
+- name: change file permissions
+  shell:
+    cmd: chmod +x /usr/local/bin/docker-compose
+
+- name: copy file docker-compose on all target hosts
+  ansible.builtin.copy:
+    src: "{{ sourse_file }}"
+    dest: docker-compose/
+    mode: "0644"
+
+- name: run docker-compose containers
+  community.docker.docker_compose:
+    project_src: docker-compose
+    files:
+      - "docker-compose.yml"
+    state: present
+
+
+- name: copy file docker-compose on all target hosts
+  ansible.builtin.copy:
+    src: "{{ sourse_file }}"
+    dest: docker-compose/
+    mode: "0644"
+
+- name: run docker-compose containers
+  community.docker.docker_compose:
+    project_src: docker-compose
+    files:
+      - "docker-compose.yml"
+    state: present
+
